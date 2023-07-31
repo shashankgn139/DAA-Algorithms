@@ -10,17 +10,17 @@ class MergeSort {
 		
 		//Best case, worst case, average  same for Merge Sort
 		ct = 0;
-		mergeSort(arr);
+		sort(arr);
 		System.out.println("Number of swaps(best, avg and worst case): " +ct);
 	}
 	
 	//Merge Sort function (NOT a in-place Merge Sort)
-	void mergeSort(int a[]) {
+	void sort(int a[]) {
 		if(a.length > 1) {
 			int b[] = Arrays.copyOfRange(a, 0, a.length/2);
 			int c[] = Arrays.copyOfRange(a, a.length/2, a.length);
-			mergeSort(b);
-			mergeSort(c);
+			sort(b);
+			sort(c);
 			merge(b, c, a);
 		}
 	}
