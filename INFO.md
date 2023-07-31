@@ -4,10 +4,9 @@ this README.md contains all the small algorithm used for solving problems.
 `find(x)` finds the representative of a given vertex in the graph.
 ```c
 	function find(x):
-		if Parent[x] != x:
-			return find(Parent[x])
-		else:
-			return x
+		while(Parent[x] != x)
+			x = Parent[x]
+		return x
 ```
 <hr>
 
