@@ -70,7 +70,7 @@ public class Dijkstra {
 		
 		//printing the array
 		System.out.println(Arrays.toString(dist));
-		System.out.println(Arrays.toString(s));
+		//System.out.println(Arrays.toString(s));
 	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

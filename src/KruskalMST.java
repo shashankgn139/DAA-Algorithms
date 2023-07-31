@@ -1,82 +1,92 @@
-import java.util.Scanner;
-
-class Compute {
-	// Number of vertices in the graph
-	private static int nodes;
-	int[][] graph;
-	int[] parent;
-
-	public void ReadFromConsole() {
-		Scanner to_read = new Scanner(System.in);
-		System.out.println("Enter number of nodes");
-		nodes = to_read.nextInt();
-		graph = new int[nodes + 2][nodes + 2]; // acquiring memory for matrix
-		parent = new int[nodes + 2];
-		int max = Integer.MAX_VALUE;
-		System.out.println("Enter cost matrix");
-		for (int i = 1; i <= nodes; i++) {
-			parent[i] = 0;
-			for (int j = 1; j <= nodes; j++) {
-				graph[i][j] = to_read.nextInt();
-				if (graph[i][j] == 0)
-					graph[i][j] = max;
+import java.util.*;
+public class KruskalMST {
+	int n;
+	int graph[][];
+	int parent[];
+	
+	KruskalMST(int n) {
+		this.n = n;
+		graph = new int[n][n];
+		parent = new int[n];
+	}
+	
+	Scanner sc = new Scanner(System.in);
+	void getGraph() {
+		System.out.println("Enter the cost matrix: ");
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				int tmp = sc.nextInt();
+				if(tmp == 0) 
+					graph[i][j] = 9999;
+				else
+					graph[i][j] = tmp;
 			}
 		}
-		to_read.close();
 	}
-
-	public void Kruskal() {
-		int i, j, a = 0, b = 0, u = 0, v = 0, min, mincost = 0, ne = 1;
-		System.out.println("The edges of Minimum Cost Spanning Tree are");
-		while (ne < nodes) {
-			for (i = 1, min = Integer.MAX_VALUE; i <= nodes; i++)
-				for (j = 1; j <= nodes; j++)
-					if (graph[i][j] < min) {
-						min = graph[i][j];
-						a = u = i;
-						b = v = j;
+	
+	//finds the representative of a given element
+	int find(int x) {
+		while(parent[x] != x)
+			x = parent[x];
+		return x;
+	}
+	
+	// unions 2 subsets(here subgraphs)
+	void union(int v, int u) {
+		parent[v] = u;
+	}
+	
+	void kruskal() {
+		getGraph();
+		int v1 = 0, u1 = 0;
+		int minCost = 0;
+		
+		for(int i = 0; i < n - 1; i++) 
+			parent[i] = i;
+		System.out.println("Edges:  ");
+		for(int i = 0; i < n; i++) {
+			int minWt = 9999;
+			
+			for(int v = 0; v < n; v++) {
+				for(int u = 0; u < n; u++) {
+					if(graph[v][u] < minWt) {
+						minWt = graph[v][u];
+						v1 = v;
+						u1 = u;
 					}
-			u = find(u);
-			v = find(v);
-			if (uni(u, v) == 1) {
-				System.out.println(ne++ + " edge(" + a + "," + b + ") = " + min);
-				mincost += min;
+				}
 			}
-			graph[a][b] = graph[b][a] = Integer.MAX_VALUE;
+			int a = find(v1);
+			int b = find(u1);
+			if(a != b) {
+				System.out.printf("(%d, %d) = %d\n", v1, u1, graph[v1][u1]);
+				union(v1, u1);
+				minCost += graph[v1][u1];
+				graph[v1][u1] = graph[u1][v1] = 9999;
+			}
 		}
-		System.out.println("Minimum cost = " + mincost);
+		System.out.println("Minimum Cost: " + minCost);
 	}
-	
-	//funciton that finds the representative of a vertex
-	public int find(int i) {
-		while (parent[i] != 0)
-			i = parent[i];
-		return i;
-	}
-	
-	/*
-	public int find(int x) {
-		if parent[x] != x
-			return find(parent[x]);
-		else:
-			return x 
-	}
-	*/
 
-	//puts the subset y in x
-	public int uni(int x, int y) {
-		if (x != y) {
-			parent[y] = x;
-			return 1;
-		}
-		return 0;
-	}
-}// End of class Compute
-
-class KruskalMST {
-	public static void main(String[] args) {
-		Compute c = new Compute();
-		c.ReadFromConsole();
-		c.Kruskal();
+	
+	public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the number of vertices: ");
+		int n = sc.nextInt();
+		KruskalMST G = new KruskalMST(n);
+		G.kruskal();
+		
+		
+		sc.close();
 	}
 }
+
+/*
+
+0 7 3 12 0 
+7 0 0 0 9
+3 0 0 0 7
+12 0 0 0 5
+0 9 7 5 0 
+ 
+ */
