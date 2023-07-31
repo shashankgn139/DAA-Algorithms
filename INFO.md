@@ -10,7 +10,7 @@ this README.md contains all the small algorithm used for solving problems.
 ```
 <hr>
 
-`union(x, y)` merges 2 subsets. First it uses `find()` to find a vertex's representative, if the roots are same no merging is done, if they are different they are merged.  
+`union(x, y)` merges 2 subsets. First it uses `find()` to find a vertex's representative ( find can also be called outside the `union()` function ), if the roots are same no merging is done, if they are different they are merged.  
 `subset x` is put in `subset y`
 ```c
 	function union(x, y):
