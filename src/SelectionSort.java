@@ -22,7 +22,7 @@ class SelectionSort {
 		int wArr[] = new int[size];
 		// generating Descending array
 		for(int i = 0; i < size; i++)
-		wArr[i] = size - i;
+			wArr[i] = size - i;
 		
 		sort(wArr);				// print array if needed < int tempArr[] = sort(wArr) >
 		System.out.println("Number of swaps(worst case): " +ct);

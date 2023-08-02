@@ -10,3 +10,6 @@ Design and Analysis of Algorithms using Java
 	* [Prim's MST](src/PrimMST.java)
 	* [Kruskal's MST](src/KruskalMST.java)
 	* [Dijkstra's Shortest Path](src/Dijkstra.java)
+  
+* Misc
+	* [Fractional Knapsack](src/KnapsackFractional.java)
